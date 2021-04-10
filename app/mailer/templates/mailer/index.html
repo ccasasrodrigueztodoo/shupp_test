@@ -128,7 +128,14 @@
 			</tr>
 			{% endfor %}
 		{% endfor %}
+		
 	</table>
+	
 	</div>
+	{% if page_obj.paginator.num_pages > 1 %}
+
+    	{% include 'mailer/_pagination.html' with page_obj=page_obj %}
+
+	{% endif %}
 </body>
 </html>

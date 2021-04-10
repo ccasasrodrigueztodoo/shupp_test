@@ -12,20 +12,12 @@ class Company(models.Model):
 
     def get_order_count(self):
         orders = 0
-        """for order in self.orders.all():
-            orders += 1
-        print(orders)"""
-        orders = self.orders.count()
-        print(orders)
+        orders = Order.objects.select_related('order').count()
         return orders
 
     def get_order_sum(self):
         total_sum = 0
-        """for contact in self.contacts.all():
-            for order in contact.orders.all():
-                total_sum += order.total  """
-        total_sum = self.orders.all().aggregate(Sum('total'))
-        print(total_sum['total__sum'])
+        total_sum = Order.objects.select_related('order').all().aggregate(Sum('total'))
         total_sum = total_sum['total__sum']
         return total_sum
 
@@ -39,7 +31,7 @@ class Contact(models.Model):
 
     def get_order_count(self):
         orders = 0
-        orders = self.orders.count()
+        orders = Order.objects.select_related('order').count()
         return orders
 
 
